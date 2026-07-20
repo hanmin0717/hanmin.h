@@ -1,0 +1,329 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+// 함수 선언
+void sort1(int N);
+void sort2(int N);
+void sort3(int N);
+void sort4(int N);
+
+int main() {
+    int n, num; // n은 사이즈, num은 종류
+
+    printf("사이즈와 종류를 입력하시오. : ");
+    if (scanf("%d %d", &n, &num) != 2) {
+        printf("입력 형식이 잘못되었습니다.\n");
+        return 0;
+    }
+
+    if (n <= 0 || num <= 0) { // 잘못된 숫자를 입력하면 프로그램을 끝냄 
+        printf("잘못입력하셨습니다\n");
+    }
+    else {
+        switch (num) { //케이스 분류에 따른 스위치 문
+        case 1:
+            sort1(n); // 매개변수 n을 넣어서 사이즈를 조사함
+            break;
+        case 2:
+            sort2(n);
+            break;
+        case 3:
+            sort3(n);
+            break;
+        case 4:
+            sort4(n);
+            break;
+        default:
+            printf("잘못입력하셨습니다\n");
+            break;
+        }
+    }
+    return 0;
+}
+
+// 1번
+void sort1(int N) {
+    if (N % 2 == 0) { //짝수일 때
+        for (int i = 1; i <= N/2; i++){
+            for (int j = 0; j < i; j++) printf("*");
+            printf("\n");
+        }
+        for (int i = 1; i <= N / 2; i++) { //대칭시키기
+            for (int j = N/2; j > i-1; j--) printf("*");
+            printf("\n");
+        }
+    }
+
+    else if (N % 2 == 1) { // 홀수일 때
+        for (int i = 1; i <= (N+1)/2; i++) {
+            for (int j = 0; j < i; j++) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i < (N + 1) / 2; i++) { // 대칭시키기
+            for (int j = (N+1)/2; j > i;j--) printf("*");
+            printf("\n");
+        }
+    }
+}
+
+// 2번
+void sort2(int N) {
+    if (N % 2 == 0) { //짝수일 떼
+        for (int i = 1; i <= N / 2; i++) {
+            for (int j = N / 2; j > i; j--) printf(" ");
+            for (int j = 0; j < i; j++) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i <= N / 2; i++) { //대칭시키기
+            for (int j = 1; j < i; j++) printf(" ");
+            for (int j = N / 2+1; j > i; j--) printf("*");
+            printf("\n");
+        }
+
+    }
+
+    else if (N % 2 == 1) { // 홀수일 때
+        for (int i = 1; i <= (N+1) / 2; i++) {
+            for (int j = (N+1)/ 2; j > i; j--) printf(" ");
+            for (int j = 0; j < i; j++) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i < (N + 1) / 2; i++) { //대칭시키기
+            for (int j = 0; j < i; j++) printf(" ");
+            for (int j = (N+1) / 2 ; j > i; j--) printf("*");
+            printf("\n");
+        }
+    }
+}
+
+// 3번
+void sort3(int N) {
+    if (N % 2 == 0) { //짝수일 때
+        for (int i = 1; i <= N / 2; i++) {
+            for (int j = 1; j < i; j++) printf(" ");
+            for (int j = N; j >= 2*i -1; j--) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i <= N / 2; i++) { //대칭시키기
+            for (int j = N / 2 ; j > i; j--) printf(" ");
+            for (int j = 0; j <= 2 * i - 1; j++) printf("*");
+            printf("\n");
+        }
+
+    }
+
+    else if (N % 2 == 1) { //홀수일 때
+        for (int i = 1; i <= (N+1) / 2; i++) {
+            for (int j = 1; j < i; j++) printf(" ");
+            for (int j = N; j >= 2 * i - 1; j--) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i <(N+1) / 2; i++) { //대칭시키기
+            for (int j = (N+1) / 2 -1; j > i; j--) printf(" ");
+            for (int j = 0; j <= 2 * i; j++) printf("*");
+            printf("\n");
+        }
+    }
+}
+
+// 4번
+void sort4(int N) {
+    if (N % 2 == 0) { //짝수일 때
+        for (int i = 1; i <= N / 2; i++) {
+            for (int j = 1; j < i; j++) printf(" ");
+            for (int j = N / 2; j >= i; j--) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i <= N / 2; i++) { //대칭시키기
+            for (int i = 1; i < N / 2; i++) printf(" ");
+            for (int j = 0; j < i; j++) printf("*");
+            for (int j = N / 2; j >= i; j--) printf(" ");
+            printf("\n");   
+        }
+    }
+
+    else if (N % 2 == 1) { //홀수일 때
+        for (int i = 1; i < (N + 1) / 2; i++) {
+            for (int j = 1; j < i; j++) printf(" ");
+            for (int j = (N+1) / 2; j >= i; j--) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i <= (N+1) / 2; i++) { //대칭시키기
+            for (int i = 1; i < (N+1) / 2; i++) printf(" ");
+            for (int j = 0; j < i; j++) printf("*");
+            for (int j = (N+1) / 2; j >= i; j--) printf(" ");
+            printf("\n");
+        }
+    }
+}#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+// 함수 선언
+void sort1(int N);
+void sort2(int N);
+void sort3(int N);
+void sort4(int N);
+
+int main() {
+    int n, num; // n은 사이즈, num은 종류
+
+    printf("사이즈와 종류를 입력하시오. : ");
+    if (scanf("%d %d", &n, &num) != 2) {
+        printf("입력 형식이 잘못되었습니다.\n");
+        return 0;
+    }
+
+    if (n <= 0 || num <= 0) { // 잘못된 숫자를 입력하면 프로그램을 끝냄 
+        printf("잘못입력하셨습니다\n");
+    }
+    else {
+        switch (num) { //케이스 분류에 따른 스위치 문
+        case 1:
+            sort1(n); // 매개변수 n을 넣어서 사이즈를 조사함
+            break;
+        case 2:
+            sort2(n);
+            break;
+        case 3:
+            sort3(n);
+            break;
+        case 4:
+            sort4(n);
+            break;
+        default:
+            printf("잘못입력하셨습니다\n");
+            break;
+        }
+    }
+    return 0;
+}
+
+// 1번
+void sort1(int N) {
+    if (N % 2 == 0) { //짝수일 때
+        for (int i = 1; i <= N/2; i++){
+            for (int j = 0; j < i; j++) printf("*");
+            printf("\n");
+        }
+        for (int i = 1; i <= N / 2; i++) { //대칭시키기
+            for (int j = N/2; j > i-1; j--) printf("*");
+            printf("\n");
+        }
+    }
+
+    else if (N % 2 == 1) { // 홀수일 때
+        for (int i = 1; i <= (N+1)/2; i++) {
+            for (int j = 0; j < i; j++) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i < (N + 1) / 2; i++) { // 대칭시키기
+            for (int j = (N+1)/2; j > i;j--) printf("*");
+            printf("\n");
+        }
+    }
+}
+
+// 2번
+void sort2(int N) {
+    if (N % 2 == 0) { //짝수일 떼
+        for (int i = 1; i <= N / 2; i++) {
+            for (int j = N / 2; j > i; j--) printf(" ");
+            for (int j = 0; j < i; j++) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i <= N / 2; i++) { //대칭시키기
+            for (int j = 1; j < i; j++) printf(" ");
+            for (int j = N / 2+1; j > i; j--) printf("*");
+            printf("\n");
+        }
+
+    }
+
+    else if (N % 2 == 1) { // 홀수일 때
+        for (int i = 1; i <= (N+1) / 2; i++) {
+            for (int j = (N+1)/ 2; j > i; j--) printf(" ");
+            for (int j = 0; j < i; j++) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i < (N + 1) / 2; i++) { //대칭시키기
+            for (int j = 0; j < i; j++) printf(" ");
+            for (int j = (N+1) / 2 ; j > i; j--) printf("*");
+            printf("\n");
+        }
+    }
+}
+
+// 3번
+void sort3(int N) {
+    if (N % 2 == 0) { //짝수일 때
+        for (int i = 1; i <= N / 2; i++) {
+            for (int j = 1; j < i; j++) printf(" ");
+            for (int j = N; j >= 2*i -1; j--) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i <= N / 2; i++) { //대칭시키기
+            for (int j = N / 2 ; j > i; j--) printf(" ");
+            for (int j = 0; j <= 2 * i - 1; j++) printf("*");
+            printf("\n");
+        }
+
+    }
+
+    else if (N % 2 == 1) { //홀수일 때
+        for (int i = 1; i <= (N+1) / 2; i++) {
+            for (int j = 1; j < i; j++) printf(" ");
+            for (int j = N; j >= 2 * i - 1; j--) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i <(N+1) / 2; i++) { //대칭시키기
+            for (int j = (N+1) / 2 -1; j > i; j--) printf(" ");
+            for (int j = 0; j <= 2 * i; j++) printf("*");
+            printf("\n");
+        }
+    }
+}
+
+// 4번
+void sort4(int N) {
+    if (N % 2 == 0) { //짝수일 때
+        for (int i = 1; i <= N / 2; i++) {
+            for (int j = 1; j < i; j++) printf(" ");
+            for (int j = N / 2; j >= i; j--) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i <= N / 2; i++) { //대칭시키기
+            for (int i = 1; i < N / 2; i++) printf(" ");
+            for (int j = 0; j < i; j++) printf("*");
+            for (int j = N / 2; j >= i; j--) printf(" ");
+            printf("\n");   
+        }
+    }
+
+    else if (N % 2 == 1) { //홀수일 때
+        for (int i = 1; i < (N + 1) / 2; i++) {
+            for (int j = 1; j < i; j++) printf(" ");
+            for (int j = (N+1) / 2; j >= i; j--) printf("*");
+            printf("\n");
+        }
+
+        for (int i = 1; i <= (N+1) / 2; i++) { //대칭시키기
+            for (int i = 1; i < (N+1) / 2; i++) printf(" ");
+            for (int j = 0; j < i; j++) printf("*");
+            for (int j = (N+1) / 2; j >= i; j--) printf(" ");
+            printf("\n");
+        }
+    }
+}
