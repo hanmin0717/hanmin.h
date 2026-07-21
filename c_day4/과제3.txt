@@ -1,0 +1,64 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+int strlength(char str[]); //문자열의 길이를 반환하는 함수
+int compare_str(char n1[], char n2[]); //문자열을 비교하는 함수
+
+int main() {
+	int n; //입력할 물품의 개수 
+	printf("입력할 물품의 개수 : ");
+	scanf("%d", &n);
+
+	if (n <= 0) { //n이 0 또는 그 이하이면 프로그램을 종료한다
+		printf("오류 또는 정상작동으로 프로그램을 종료합니다");
+		return 0;
+	}
+
+	typedef struct { // 물품의 이름과 가격을 저장하는 구조체
+		char name[10];
+		int price;
+	}item;
+
+	//상품의 이름과 가격을 입력받기 위해 사용한 동적할당
+	item* a = (item*)malloc(sizeof(item) * n);
+	for (int i = 0; i < n; i++) {
+		printf("구매할 %d번째 물품과 가격 : ", i + 1);
+		scanf("%s %d", a[i].name, &a[i].price);
+	}
+	char phrchase_item[10]; //구조체에 저장된 상품의 이름과 내가 입력한 상품을 비교하기 위해 만든 문자열
+
+	printf("구매할 상품을 입력하세요 : ");
+	scanf("%s", phrchase_item);
+
+	int sum = 0;
+	for (int i = 0; i < n; i++) {
+		int count = compare_str(a[i].name, phrchase_item);
+		if (count == 0) sum += a[i].price;
+	}
+	
+	printf("가격 : %d ", sum);
+	free(a);
+
+	return 0;
+}
+
+int strlength(char str[]) {
+	int i = 0;
+	while (1) {
+		if (str[i] == '\0') //널문자를 활용하여 문자열의 길이를 탐색하는 코드
+			break;
+		i++;
+	}
+	return i;// 문자열 길이 반환
+}
+
+int compare_str(char n1[], char n2[]) {
+	int i = 0;
+	while (n1[i] != '\0' && n2[i] != '\0') { // 두 문자열 모두 널문자가 될때까지 실행
+		if (n1[i] != n2[i]) return -1; //두 문자열이 다르기에 -1을 반환
+		i++;
+	}
+	if (n1[i] == '\0' && n2[i] == '\0') return 0; // 널문자까지 같으면 완전히 동일한 문자열이기에 조건문으로 판단하는 코드
+	return -1; // 길이가 다름을 반환하는 코드
+}
