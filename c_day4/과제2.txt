@@ -1,0 +1,68 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+double jegopgeun(int n) {
+    if (n <= 0) return 0; //만약 매개변수로부터 받은 값이 0보다 작거나 같다면 함수를 끝내는 코드
+
+    double x = n; //처음 예상치를 n으로 정해서 아래있는 반복문에 사용될 변수
+
+    for (int i = 0; i < 15; i++) { //제곱근을 근사시키기 위해 공식 0.5 * (x+n/x)를 사용하여 예상치를 15번 정도 바꿔주면 제곱근에 근사한 값을 가질 수 있게 하는 코드 
+        x = 0.5 * (x + n / x);
+    }
+    return x; //위에서 계산한 제곱근 근사를 반환
+}
+
+int main() {
+    int n; // 입력받을 좌표의 수를 입혁하는 변수
+
+    printf("몇개의 좌표를 입력받겠습니까? : ");
+    scanf("%d", &n);
+    if (n <= 0) { //n이 0 또는 그 이하이면 프로그램을 종료한다
+        printf("오류 또는 정상작동으로 프로그램을 종료합니다");
+        return 0;
+    }
+    //동적할당으로 입력할 좌표(x,y)를 정의한 코드
+
+    typedef struct { //구조체를 가지고 x, y를 정의한 코드
+        int x;
+        int y;
+    }zhaphyo;
+
+    zhaphyo* a = (zhaphyo*)malloc(sizeof(zhaphyo) * n);
+    for (int i = 0; i < n; i++) { //동적할당과 구조체를 이용하여 좌표를 입력받는 코드
+        scanf("%d %d", &a[i].x, &a[i].y);
+    }
+
+    int max1, max2; //가장 거리가 먼 좌표를 찾기위한 변수
+
+    for (int i = 0; i < n; i++) { //가장거리가 먼 좌표를 찾기위한 반복문 연산
+        int result = ((a[i].x * a[i].x) + (a[i].y * a[i].y));
+        if (i == 0) { //처음 반복할 때는 max1, max2를 각각 a[0]으로 초기화
+            max1 = a[0].x;
+            max2 = a[0].y;
+        }
+        if ((max1 * max1) + (max2 * max2) < result) { //큰 좌표를 바꿔주는 작업
+            max1 = a[i].x;
+            max2 = a[i].y;
+        }
+    }
+
+    //가장 큰 좌표와 다른 좌표들 간의 거리를 구하는 코드
+    double sum = 0.0;
+    for (int i = 0; i < n; i++) {
+        if (a[i].x == max1 && a[i].y == max2) continue; //만약 다른 좌표가 거리가 최대인 좌표와 같다면 건너뛰네 하는 코드
+
+        double dx = a[i].x - max1;
+        double dy = a[i].y - max2;
+
+        // 
+        double distance = jegopgeun(dx * dx + dy * dy); //제곱근을 근사시키는 함수 호출
+        sum += distance;// 호출된 함수의 반환값들을 전부 더해 가장 큰 좌표와 다른 좌표들 간의 거리를 구할 수 있는 코드
+    }
+
+    printf("가장 거리가 먼 좌표는 (%d, %d)이며, 다른 좌표의 거리 총합은 약 %lf 입니다. ", max1, max2, sum);
+
+    free(a); // 동적할당 해제
+    return 0;
+}
