@@ -2,16 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-double jegopgeun(int n) {
-    if (n <= 0) return 0; //만약 매개변수로부터 받은 값이 0보다 작거나 같다면 함수를 끝내는 코드
-
-    double x = n; //처음 예상치를 n으로 정해서 아래있는 반복문에 사용될 변수
-
-    for (int i = 0; i < 15; i++) { //제곱근을 근사시키기 위해 공식 0.5 * (x+n/x)를 사용하여 예상치를 15번 정도 바꿔주면 제곱근에 근사한 값을 가질 수 있게 하는 코드 
-        x = 0.5 * (x + n / x);
-    }
-    return x; //위에서 계산한 제곱근 근사를 반환
-}
+double jegopgeun(int n);
 
 int main() {
     int n; // 입력받을 좌표의 수를 입혁하는 변수
@@ -65,4 +56,15 @@ int main() {
 
     free(a); // 동적할당 해제
     return 0;
+}
+
+double jegopgeun(int n) {
+    if (n <= 0) return 0; //만약 매개변수로부터 받은 값이 0보다 작거나 같다면 함수를 끝내는 코드
+
+    double x = n; //처음 예상치를 n으로 정해서 아래있는 반복문에 사용될 변수
+
+    for (int i = 0; i < 15; i++) { //제곱근을 근사시키기 위해 공식 0.5 * (x+n/x)를 사용하여 예상치를 15번 정도 바꿔주면 제곱근에 근사한 값을 가질 수 있게 하는 코드 
+        x = 0.5 * (x + n / x);
+    }
+    return x; //위에서 계산한 제곱근 근사를 반환
 }
